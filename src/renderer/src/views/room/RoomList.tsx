@@ -1,9 +1,18 @@
+import { RoomItem } from '@renderer/models/Room'
 import { WSMessageData } from '@renderer/models/WS'
-import { useEffect, useState } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
+import './room.scss'
 
-interface RoomItem {
-  id: string
-  name: string
+const RenderRoomList = (roomList: Array<RoomItem>): ReactNode => {
+  const render = roomList.map((room, index) => {
+    return (
+      <li key={room.id}>
+        {index + 1} {room.name}
+      </li>
+    )
+  })
+
+  return render
 }
 
 function RoomList(): JSX.Element {
@@ -38,11 +47,13 @@ function RoomList(): JSX.Element {
   }, [])
 
   return (
-    <div>
-      RoomList
-      <ul>
-        <li>room: </li>
-      </ul>
+    <div id="roomList">
+      <p>방 목록</p>
+      <button type="button" className="createRoom">
+        방만들기
+      </button>
+      <hr />
+      <ul>{RenderRoomList(roomList)}</ul>
     </div>
   )
 }
