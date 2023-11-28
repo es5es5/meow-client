@@ -1,4 +1,13 @@
-#login {
+@keyframes motion {
+  0% {
+    margin-left: -10px;
+  }
+  100% {
+    margin-left: 10px;
+  }
+}
+
+#home {
   background-color: #17212b;
   color: #f5f5f5;
   width: 100%;
@@ -20,6 +29,7 @@
       font-size: 16px;
     }
     .logo {
+      animation: motion 0.5s linear 1s infinite alternate;
     }
   }
 
