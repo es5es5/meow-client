@@ -3,38 +3,29 @@ import { WSMessageData } from '@renderer/models/WS'
 import { ReactNode, useEffect, useState } from 'react'
 import './room.scss'
 
-const RenderRoomList = (roomList: Array<RoomItem>): ReactNode => {
-  const render = roomList.map((room, index) => {
-    return (
-      <li key={room.id}>
-        {index + 1} {room.name}
-      </li>
-    )
-  })
-
-  return render
-}
-
 function RoomList(): JSX.Element {
   const ws = new WebSocket('wss://meow.rcan.net')
   const [wsConnected, setWsConnected] = useState(0)
   const [roomList, setRoomList] = useState([] as Array<RoomItem>)
   const [roomName, setRoomName] = useState('' as string)
 
-  ws.onopen = (): void => {
-    setWsConnected(ws.readyState)
+  const socketOnOpen = () => {
+    ws.onopen = (): void => {
+      console.log('ononpen')
+      setWsConnected(ws.readyState)
 
-    ws.send(
-      JSON.stringify({
-        event: 'room',
-        data: {
-          action: 'list'
-        }
-      })
-    )
+      ws.send(
+        JSON.stringify({
+          event: 'room',
+          data: {
+            action: 'list'
+          }
+        })
+      )
+    }
   }
 
-  useEffect(() => {
+  const socketOnMessage = () => {
     ws.onmessage = (message): void => {
       const WSMessageData = JSON.parse(message.data) as WSMessageData
       if (WSMessageData && WSMessageData.event === 'room') {
@@ -45,7 +36,7 @@ function RoomList(): JSX.Element {
         }
       }
     }
-  }, [])
+  }
 
   const createRoom = (): void => {
     if (roomName === '') return
@@ -61,6 +52,44 @@ function RoomList(): JSX.Element {
     )
   }
 
+  const joinRoom = (roomId: string): void => {
+    if (roomId === '') return
+    console.log(`${roomId} joinRoom`)
+    ws.send(
+      JSON.stringify({
+        event: 'room',
+        data: {
+          action: 'join',
+          name: roomId
+        }
+      })
+    )
+  }
+
+  const RenderRoomList = (roomList: Array<RoomItem>): ReactNode => {
+    const render = roomList.map((room, index) => {
+      return (
+        <li key={room.id}>
+          <span className="roomInfo">
+            {index + 1} {room.name}
+          </span>
+          <button
+            type="button"
+            className="joinRoom"
+            onClick={(event) => {
+              event.preventDefault()
+              joinRoom(room.id)
+            }}
+          >
+            참가
+          </button>
+        </li>
+      )
+    })
+
+    return render
+  }
+
   return (
     <div id="roomList">
       <p>방 목록</p>
@@ -70,7 +99,14 @@ function RoomList(): JSX.Element {
         value={roomName}
         onChange={(e) => setRoomName(e.target.value)}
       />
-      <button type="button" className="createRoom" onClick={createRoom}>
+      <button
+        type="button"
+        className="createRoom"
+        onClick={(event) => {
+          event.preventDefault()
+          createRoom
+        }}
+      >
         방만들기
       </button>
       <hr />

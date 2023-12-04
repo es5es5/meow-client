@@ -1,7 +1,13 @@
 #roomList {
   .createRoom {
     border: 1px solid #17212b;
-    padding: 4px 12px;
+    padding: 2px 6px;
+    border-radius: 3px;
+  }
+
+  .joinRoom {
+    border: 1px solid #17212b;
+    padding: 2px 6px;
     border-radius: 3px;
   }
 }
