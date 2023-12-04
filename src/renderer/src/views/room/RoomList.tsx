@@ -19,6 +19,7 @@ function RoomList(): JSX.Element {
   const ws = new WebSocket('wss://meow.rcan.net')
   const [wsConnected, setWsConnected] = useState(0)
   const [roomList, setRoomList] = useState([] as Array<RoomItem>)
+  const [roomName, setRoomName] = useState('' as string)
 
   ws.onopen = (): void => {
     setWsConnected(ws.readyState)
@@ -46,10 +47,30 @@ function RoomList(): JSX.Element {
     }
   }, [])
 
+  const createRoom = (): void => {
+    if (roomName === '') return
+    console.log('createRoom')
+    ws.send(
+      JSON.stringify({
+        event: 'room',
+        data: {
+          action: 'create',
+          name: roomName
+        }
+      })
+    )
+  }
+
   return (
     <div id="roomList">
       <p>방 목록</p>
-      <button type="button" className="createRoom">
+      <input
+        type="text"
+        placeholder="방이름"
+        value={roomName}
+        onChange={(e) => setRoomName(e.target.value)}
+      />
+      <button type="button" className="createRoom" onClick={createRoom}>
         방만들기
       </button>
       <hr />

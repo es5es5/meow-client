@@ -7,6 +7,12 @@ module.exports = {
     '@electron-toolkit/eslint-config-prettier'
   ],
   rules: {
-    '@typescript-eslint/no-explicit-any': 0
+    '@typescript-eslint/no-explicit-any': 0,
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto'
+      }
+    ]
   }
 }
