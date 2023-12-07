@@ -3,6 +3,7 @@ import { WSMessageData } from '@renderer/models/WS'
 import { ReactNode, useEffect, useState } from 'react'
 import './room.scss'
 import { generateUUID } from '@renderer/ts/utils'
+import { useNavigate } from 'react-router-dom'
 
 function RoomList(): JSX.Element {
   const [ws, setWs] = useState(new WebSocket('wss://meow.rcan.net'))
@@ -10,6 +11,7 @@ function RoomList(): JSX.Element {
   const [roomList, setRoomList] = useState([] as Array<RoomItem>)
   const [roomName, setRoomName] = useState('' as string)
 
+  const navigate = useNavigate()
   const socketOnOpen = (): void => {
     ws.onopen = (): void => {
       console.log('ononpen')
@@ -20,15 +22,6 @@ function RoomList(): JSX.Element {
           event: 'connect',
           data: {
             id: generateUUID(),
-          },
-        }),
-      )
-
-      ws.send(
-        JSON.stringify({
-          event: 'room',
-          data: {
-            action: 'list',
           },
         }),
       )
@@ -45,6 +38,15 @@ function RoomList(): JSX.Element {
           case 'list':
             console.log('list', WSMessageData.data.data)
             setRoomList(WSMessageData.data.data)
+        }
+        switch (WSMessageData.data.action) {
+          case 'join':
+            console.log('join', WSMessageData.data.data)
+            navigate('/room/detail', {
+              state: {
+                roomId: WSMessageData.data?.data?.roomId,
+              },
+            })
         }
       }
     }

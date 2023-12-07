@@ -2,6 +2,7 @@ import Login from './components/Login'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import RoomList from './views/room/RoomList'
 import Home from './components/Home'
+import RoomDetail from './views/room/RoomDetail'
 
 function App(): JSX.Element {
   return (
@@ -11,6 +12,7 @@ function App(): JSX.Element {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/room" element={<RoomList />} />
+          <Route path="/room/detail" element={<RoomDetail />} />
         </Routes>
       </div>
     </BrowserRouter>
