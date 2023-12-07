@@ -11,9 +11,11 @@ function Home(): JSX.Element {
           <p className="title">Welcome to Meow !</p>
         </div>
         <div className="button_wrap">
-          <button type="button" className="enter">
-            <Link to={'/room'}>Enter</Link>
-          </button>
+          <Link to={'/room'}>
+            <button type="button" className="enter">
+              Enter
+            </button>
+          </Link>
         </div>
         {/* <div className="password_wrap">
         <input type="password" name="password" id="password" />

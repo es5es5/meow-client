@@ -2,6 +2,7 @@ import { RoomItem } from '@renderer/models/Room'
 import { WSMessageData } from '@renderer/models/WS'
 import { ReactNode, useEffect, useState } from 'react'
 import './room.scss'
+import { generateUUID } from '@renderer/ts/utils'
 
 function RoomList(): JSX.Element {
   const [ws, setWs] = useState(new WebSocket('wss://meow.rcan.net'))
@@ -13,6 +14,15 @@ function RoomList(): JSX.Element {
     ws.onopen = (): void => {
       console.log('ononpen')
       setWsConnected(ws.readyState)
+
+      ws.send(
+        JSON.stringify({
+          event: 'connect',
+          data: {
+            id: generateUUID(),
+          },
+        }),
+      )
 
       ws.send(
         JSON.stringify({
@@ -43,7 +53,6 @@ function RoomList(): JSX.Element {
   const createRoom = (): void => {
     if (!wsConnected) return
     if (roomName === '') return
-    console.log('createRoom')
     ws.send(
       JSON.stringify({
         event: 'room',
@@ -99,20 +108,20 @@ function RoomList(): JSX.Element {
 
   useEffect(() => {
     socketOnOpen()
-    setRoomList([
-      {
-        id: '1',
-        name: 'Test 방',
-      },
-      {
-        id: '2',
-        name: 'Hello Meow!',
-      },
-      {
-        id: '3',
-        name: '여기까지 하드코딩임 방 클릭하면 입장',
-      },
-    ])
+    // setRoomList([
+    //   {
+    //     id: '1',
+    //     name: 'Test 방',
+    //   },
+    //   {
+    //     id: '2',
+    //     name: 'Hello Meow!',
+    //   },
+    //   {
+    //     id: '3',
+    //     name: '여기까지 하드코딩임 방 클릭하면 입장',
+    //   },
+    // ])
   }, [])
 
   return (
@@ -128,13 +137,7 @@ function RoomList(): JSX.Element {
       <hr />
       <ul className="roomWrap">{RenderRoomList(roomList)}</ul>
       <div className="createWrap">
-        <div
-          className="gamepadIconWrap"
-          onClick={(event) => {
-            event.preventDefault()
-            createRoom
-          }}
-        >
+        <div className="gamepadIconWrap" onClick={createRoom}>
           <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M17.002 7H7a5 5 0 103.57 8.5h2.86A5 5 0 1017.002 7zM9.75 12.375a.375.375 0 01-.375.375H7.75v1.625a.375.375 0 01-.375.375h-.75a.375.375 0 01-.375-.375V12.75H4.626a.375.375 0 01-.375-.375v-.75a.375.375 0 01.375-.375H6.25V9.625a.375.375 0 01.375-.375h.75a.375.375 0 01.375.375v1.625h1.625a.375.375 0 01.375.375v.75zm6.75 2.375a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5zm2-3a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5z"
