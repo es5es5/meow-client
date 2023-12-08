@@ -6,16 +6,14 @@ import { generateUUID } from '@renderer/ts/utils'
 import { useNavigate } from 'react-router-dom'
 
 function RoomList(): JSX.Element {
-  const [ws, setWs] = useState(new WebSocket('wss://meow.rcan.net'))
-  const [wsConnected, setWsConnected] = useState(0)
+  const [ws, setWs] = useState(new WebSocket(import.meta.env.RENDERER_VITE_SOCKET_URL))
   const [roomList, setRoomList] = useState([] as Array<RoomItem>)
   const [roomName, setRoomName] = useState('' as string)
-
   const navigate = useNavigate()
+
   const socketOnOpen = (): void => {
     ws.onopen = (): void => {
       console.log('ononpen')
-      setWsConnected(ws.readyState)
 
       ws.send(
         JSON.stringify({
@@ -44,7 +42,7 @@ function RoomList(): JSX.Element {
             console.log('join', WSMessageData.data.data)
             navigate('/room/detail', {
               state: {
-                roomId: WSMessageData.data?.data?.roomId,
+                roomId: WSMessageData.data?.data?.room.id,
               },
             })
         }
@@ -53,7 +51,6 @@ function RoomList(): JSX.Element {
   }
 
   const createRoom = (): void => {
-    if (!wsConnected) return
     if (roomName === '') return
     ws.send(
       JSON.stringify({
@@ -66,31 +63,23 @@ function RoomList(): JSX.Element {
     )
   }
 
-  const joinRoom = (roomId: string): void => {
-    if (!wsConnected) return
+  const sendJoinRoomMessage = (roomId: string): void => {
     if (roomId === '') return
-    console.log(`${roomId} joinRoom`)
     ws.send(
       JSON.stringify({
         event: 'room',
         data: {
           action: 'join',
-          name: roomId,
+          id: roomId,
         },
       }),
     )
   }
 
-  const RenderRoomList = (roomList: Array<RoomItem>): ReactNode => {
+  const RenderRoomItemList = (roomList: Array<RoomItem>): ReactNode => {
     const render = roomList.map((room) => {
       return (
-        <li
-          key={room.id}
-          onClick={(event) => {
-            event.preventDefault()
-            joinRoom(room.id)
-          }}
-        >
+        <li key={room.id} onClick={() => sendJoinRoomMessage(room.id)}>
           <div className="profileWrap">
             <img
               className="profileImage"
@@ -110,20 +99,6 @@ function RoomList(): JSX.Element {
 
   useEffect(() => {
     socketOnOpen()
-    // setRoomList([
-    //   {
-    //     id: '1',
-    //     name: 'Test 방',
-    //   },
-    //   {
-    //     id: '2',
-    //     name: 'Hello Meow!',
-    //   },
-    //   {
-    //     id: '3',
-    //     name: '여기까지 하드코딩임 방 클릭하면 입장',
-    //   },
-    // ])
   }, [])
 
   return (
@@ -137,7 +112,7 @@ function RoomList(): JSX.Element {
         onChange={(e) => setRoomName(e.target.value)}
       />
       <hr />
-      <ul className="roomWrap">{RenderRoomList(roomList)}</ul>
+      <ul className="roomWrap">{RenderRoomItemList(roomList)}</ul>
       <div className="createWrap">
         <div className="gamepadIconWrap" onClick={createRoom}>
           <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">

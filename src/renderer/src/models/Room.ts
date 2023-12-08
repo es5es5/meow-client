@@ -5,4 +5,6 @@ export interface RoomItem {
   name: string
   ownerId?: string
   owner?: User
+  user?: string[]
+  // user?: Array<User>
 }
