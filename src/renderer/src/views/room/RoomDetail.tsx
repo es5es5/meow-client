@@ -65,6 +65,19 @@ function RoomDetail(): JSX.Element {
     )
   }
 
+  const leaveRoom = (): void => {
+    ws.send(
+      JSON.stringify({
+        event: 'room',
+        data: {
+          action: 'exit',
+          id: roomDetail.room?.id,
+        },
+      }),
+    )
+    navigate('/room', {})
+  }
+
   useEffect(() => {
     socketOnOpen()
   }, [])
@@ -83,13 +96,7 @@ function RoomDetail(): JSX.Element {
         </ul>
       </div>
       <hr />
-      <button
-        onClick={() => {
-          navigate('/room', {})
-        }}
-      >
-        방 나가기
-      </button>
+      <button onClick={leaveRoom}>방 나가기</button>
     </div>
   )
 }
