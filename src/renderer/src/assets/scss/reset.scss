@@ -8,11 +8,18 @@
   margin: 0;
   padding: 0;
 }
+::-webkit-scrollbar {
+  display: none;
+}
 html,
 body,
 #app,
 #root {
   height: 100%;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-use-select: none;
+  user-select: none;
 }
 html {
   font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;

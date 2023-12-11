@@ -1,11 +1,12 @@
+import PageHeader from '@renderer/components/PageHeader'
 import { RoomItem } from '@renderer/models/Room'
-import { User } from '@renderer/models/User'
 import { WSMessageData } from '@renderer/models/WS'
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import './roomDetail.scss'
 
 interface RoomDetail {
-  room?: RoomItem
+  room: RoomItem
   user?: string[]
 }
 
@@ -83,9 +84,8 @@ function RoomDetail(): JSX.Element {
   }, [])
 
   return (
-    <div>
-      <p>방 제목: {roomDetail.room?.name}</p>
-      <p>방 ID: {roomDetail.room?.id}</p>
+    <div id="roomDetail">
+      <PageHeader title={roomDetail.room?.name} onBackClick={leaveRoom} />
       <hr />
       <div>
         <p>방 접속한 사람</p>
@@ -95,8 +95,6 @@ function RoomDetail(): JSX.Element {
           })}
         </ul>
       </div>
-      <hr />
-      <button onClick={leaveRoom}>방 나가기</button>
     </div>
   )
 }
