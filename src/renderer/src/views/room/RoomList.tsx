@@ -1,7 +1,7 @@
 import { RoomItem } from '@renderer/models/Room'
 import { WSMessageData } from '@renderer/models/WS'
 import { ReactNode, useEffect, useState } from 'react'
-import './room.scss'
+import './roomList.scss'
 import { generateUUID } from '@renderer/ts/utils'
 import { useNavigate } from 'react-router-dom'
 
