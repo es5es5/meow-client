@@ -1,5 +1,5 @@
 import { RoomItem } from '@renderer/models/Room'
-import { WSMessageData } from '@renderer/models/WS'
+import { SendConnectData, WSMessageData } from '@renderer/models/WS'
 import { ReactNode, useEffect, useState } from 'react'
 import './roomList.scss'
 import { generateUUID } from '@renderer/ts/utils'
@@ -19,7 +19,9 @@ function RoomList(): JSX.Element {
         JSON.stringify({
           event: 'connect',
           data: {
-            id: generateUUID(),
+            id: import.meta.env.RENDERER_VITE_USER_ID,
+            nickName: import.meta.env.RENDERER_VITE_USER_ID,
+            eventListener: ['room.list'],
           },
         }),
       )
