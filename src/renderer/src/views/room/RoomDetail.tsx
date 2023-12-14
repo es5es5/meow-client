@@ -2,7 +2,7 @@ import PageHeader from '@renderer/components/PageHeader'
 import { RoomItem } from '@renderer/models/Room'
 import { WSMessageData } from '@renderer/models/WS'
 import { useEffect, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import './roomDetail.scss'
 
 interface RoomDetail {
@@ -11,9 +11,9 @@ interface RoomDetail {
 }
 
 function RoomDetail(): JSX.Element {
-  const location = useLocation()
   const [ws, setWs] = useState(new WebSocket(import.meta.env.RENDERER_VITE_SOCKET_URL))
   const [roomDetail, setRoomDetail] = useState({} as RoomDetail)
+  const [players, setPlayers] = useState([])
   const navigate = useNavigate()
 
   const socketOnOpen = (): void => {
@@ -23,6 +23,21 @@ function RoomDetail(): JSX.Element {
           event: 'connect',
           data: {
             id: import.meta.env.RENDERER_VITE_USER_ID,
+            nickName: import.meta.env.RENDERER_VITE_USER_ID,
+            eventListener: ['room.detail'],
+          },
+        }),
+      )
+
+      // 임시
+      ws.send(
+        JSON.stringify({
+          event: 'room',
+          data: {
+            action: 'detail',
+            data: {
+              id: useParams().roomId,
+            },
           },
         }),
       )
@@ -35,8 +50,8 @@ function RoomDetail(): JSX.Element {
       const WSMessageData = JSON.parse(message.data) as WSMessageData
       console.log('event', WSMessageData.event)
       if (WSMessageData && WSMessageData.event === 'connect') {
-        console.log('sendJoin', location.state.roomId)
-        sendJoinRoomMessage(location.state.roomId)
+        console.log('sendJoin', useParams().roomId)
+        sendJoinRoomMessage(useParams().roomId!)
         return
       }
       if (WSMessageData && WSMessageData.event === 'room') {
@@ -45,8 +60,9 @@ function RoomDetail(): JSX.Element {
         }
         switch (WSMessageData.data.action) {
           case 'join':
-            console.log('join', WSMessageData.data.data.room)
-            setRoomDetail(WSMessageData.data.data)
+            console.log('join', WSMessageData.data.data)
+            setRoomDetail(WSMessageData.data.data.room)
+            setPlayers(WSMessageData.data.data.user)
         }
         return
       }

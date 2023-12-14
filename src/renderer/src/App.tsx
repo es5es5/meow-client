@@ -12,7 +12,7 @@ function App(): JSX.Element {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/room" element={<RoomList />} />
-          <Route path="/room/detail" element={<RoomDetail />} />
+          <Route path="/room/detail/:roomId" element={<RoomDetail />} />
         </Routes>
       </div>
     </BrowserRouter>

@@ -1,9 +1,8 @@
 import { RoomItem } from '@renderer/models/Room'
-import { SendConnectData, WSMessageData } from '@renderer/models/WS'
+import { WSMessageData } from '@renderer/models/WS'
 import { ReactNode, useEffect, useState } from 'react'
-import './roomList.scss'
-import { generateUUID } from '@renderer/ts/utils'
 import { useNavigate } from 'react-router-dom'
+import './roomList.scss'
 
 function RoomList(): JSX.Element {
   const [ws, setWs] = useState(new WebSocket(import.meta.env.RENDERER_VITE_SOCKET_URL))
@@ -26,6 +25,16 @@ function RoomList(): JSX.Element {
         }),
       )
 
+      // 임시
+      ws.send(
+        JSON.stringify({
+          event: 'room',
+          data: {
+            action: 'list',
+          },
+        }),
+      )
+
       socketOnMessage()
     }
   }
@@ -42,11 +51,7 @@ function RoomList(): JSX.Element {
         switch (WSMessageData.data.action) {
           case 'join':
             console.log('join', WSMessageData.data.data)
-            navigate('/room/detail', {
-              state: {
-                roomId: WSMessageData.data?.data?.room.id,
-              },
-            })
+            navigate(`/room/detail/${WSMessageData.data?.data?.room.id}`)
         }
       }
     }
