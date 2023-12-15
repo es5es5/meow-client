@@ -25,16 +25,6 @@ function RoomList(): JSX.Element {
         }),
       )
 
-      // 임시
-      ws.send(
-        JSON.stringify({
-          event: 'room',
-          data: {
-            action: 'list',
-          },
-        }),
-      )
-
       socketOnMessage()
     }
   }

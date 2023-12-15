@@ -8,7 +8,7 @@ import { User } from '@renderer/models/User'
 
 interface RoomDetail {
   room: RoomItem
-  user?: Array<User>
+  players?: Array<User>
 }
 
 function RoomDetail(): JSX.Element {
@@ -30,18 +30,6 @@ function RoomDetail(): JSX.Element {
         }),
       )
 
-      // 임시
-      ws.send(
-        JSON.stringify({
-          event: 'room',
-          data: {
-            action: 'detail',
-            data: {
-              id: params.roomId,
-            },
-          },
-        }),
-      )
       socketOnMessage()
     }
   }
@@ -106,8 +94,8 @@ function RoomDetail(): JSX.Element {
       <div>
         <p>방 접속한 사람</p>
         <ul>
-          {roomDetail.user?.map((user, index) => {
-            return <li key={index}>- {user.nickName}</li>
+          {roomDetail.players?.map((player, index) => {
+            return <li key={index}>- {player.nickName}</li>
           })}
         </ul>
       </div>
