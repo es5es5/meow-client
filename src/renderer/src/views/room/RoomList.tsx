@@ -87,6 +87,7 @@ function RoomList(): JSX.Element {
           </div>
           <div className="titleWrap">
             <p className="roomName">{room.name}</p>
+            <p className="onwerName">{room.ownerId}</p>
           </div>
         </li>
       )
