@@ -51,7 +51,8 @@ function RoomList(): JSX.Element {
         switch (WSMessageData.data.action) {
           case 'join':
             console.log('join', WSMessageData.data.data)
-            navigate(`/room/detail/${WSMessageData.data?.data?.room.id}`)
+            console.log('WSMessageData.data?.data?.room.id', WSMessageData.data?.data?.room.id)
+            navigate(`/room/${WSMessageData.data?.data?.room.id}`)
         }
       }
     }
