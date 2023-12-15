@@ -89,16 +89,13 @@ function RoomDetail(): JSX.Element {
 
   return (
     <div id="roomDetail">
-      <PageHeader title={roomDetail.room?.name} onBackClick={leaveRoom} />
+      <PageHeader
+        title={roomDetail.room?.name}
+        onBackClick={leaveRoom}
+        players={roomDetail.players}
+      />
       <hr />
-      <div>
-        <p>방 접속한 사람</p>
-        <ul>
-          {roomDetail.players?.map((player, index) => {
-            return <li key={index}>- {player.nickName}</li>
-          })}
-        </ul>
-      </div>
+      <div>Chat</div>
     </div>
   )
 }

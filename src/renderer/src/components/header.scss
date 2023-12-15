@@ -1,5 +1,6 @@
 #hedaer {
   position: relative;
+  height: 50px;
 }
 h2 {
   text-align: center;
@@ -14,12 +15,34 @@ h2 {
   position: absolute;
   cursor: pointer;
 
-  &.back {
+  &.left {
     top: 14px;
     left: 16px;
   }
-  &.settings {
+  &.right {
     top: 14px;
     right: 16px;
+  }
+}
+
+.playerListWrap {
+  position: absolute;
+  top: 50px;
+  right: 0px;
+  width: 180px;
+  background-color: #17212b;
+
+  li {
+    vertical-align: middle;
+    cursor: pointer;
+    padding: 4px 8px;
+    &:hover {
+      background-color: #232e3c;
+    }
+    .userProfile {
+      width: 32px;
+      height: 32px;
+      margin-right: 4px;
+    }
   }
 }
