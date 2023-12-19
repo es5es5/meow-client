@@ -15,6 +15,7 @@ interface RoomDetail {
 function RoomDetail(): JSX.Element {
   const [ws, setWs] = useState(new WebSocket(import.meta.env.RENDERER_VITE_SOCKET_URL))
   const [roomDetail, setRoomDetail] = useState({} as RoomDetail)
+  const [roomMessages, setRoomMessages] = useState({} as any)
   const [inputText, setInputText] = useState('' as any)
   const navigate = useNavigate()
   const params = useParams()
@@ -50,9 +51,13 @@ function RoomDetail(): JSX.Element {
           case 'list':
         }
         switch (WSMessageData.data.action) {
-          case 'join':
-            console.log('join', WSMessageData.data.data)
+          case 'detail':
+            console.log('detail', WSMessageData.data.data)
             setRoomDetail(WSMessageData.data.data)
+        }
+        switch (WSMessageData.data.action) {
+          case 'message':
+            console.log('message', WSMessageData.data.data)
         }
         return
       }

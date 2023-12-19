@@ -39,6 +39,11 @@ function RoomList(): JSX.Element {
             setRoomList(WSMessageData.data.data)
         }
         switch (WSMessageData.data.action) {
+          case 'create':
+            console.log('create', WSMessageData.data.data)
+            navigate(`/room/${WSMessageData.data?.data?.room.id}`)
+        }
+        switch (WSMessageData.data.action) {
           case 'join':
             console.log('join', WSMessageData.data.data)
             console.log('WSMessageData.data?.data?.room.id', WSMessageData.data?.data?.room.id)
@@ -59,6 +64,7 @@ function RoomList(): JSX.Element {
         },
       }),
     )
+    setRoomName('')
   }
 
   const sendJoinRoomMessage = (roomId: string): void => {
