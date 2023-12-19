@@ -5,6 +5,13 @@ function SendChatMessage(props: {
   setInputText: any
   sendChatMessage: any
 }): JSX.Element {
+  const handleEnter = (e: React.KeyboardEvent<HTMLTextAreaElement>): void => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      props.sendChatMessage()
+    }
+  }
+
   return (
     <div id="sendChatMessage">
       <textarea
@@ -12,6 +19,7 @@ function SendChatMessage(props: {
         id=""
         value={props.inputText}
         onChange={(e) => props.setInputText(e.target.value)}
+        onKeyDown={(e) => handleEnter(e)}
       ></textarea>
       <div className="sendMessageIconWrap" onClick={() => props.sendChatMessage()}>
         <svg width="34" height="34" fill="none" xmlns="http://www.w3.org/2000/svg">
