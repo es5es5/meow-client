@@ -7,7 +7,7 @@ function MessageList(props: { roomMessages: Array<MessageItem> }): JSX.Element {
         {props.roomMessages.map((message: MessageItem, index) => {
           return (
             <li className={`${message.isMe ? 'right' : 'left'}`} key={`message_${index}`}>
-              {message.message}
+              <span className="message">{message.message}</span>
             </li>
           )
         })}

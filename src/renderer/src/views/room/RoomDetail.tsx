@@ -7,7 +7,7 @@ import MessageList from './components/MessageList'
 import SendChatMessage from './components/SendChatMessage'
 import './roomDetail.scss'
 
-function RoomDetailComp(): JSX.Element {
+function RoomDetailPage(): JSX.Element {
   const [ws, setWs] = useState(new WebSocket(import.meta.env.RENDERER_VITE_SOCKET_URL))
   const [roomDetail, setRoomDetail] = useState({} as RoomDetail)
   const [roomMessages, setRoomMessages] = useState([] as Array<MessageItem>)
@@ -114,6 +114,24 @@ function RoomDetailComp(): JSX.Element {
 
   useEffect(() => {
     socketOnOpen()
+    // setRoomMessages([
+    //   {
+    //     roomId: 'string',
+    //     message: 'stringtrue',
+    //     senderId: 'trueg',
+    //     senderName: 'trueng',
+    //     senderProfile: 'trueing',
+    //     isMe: true,
+    //   },
+    //   {
+    //     roomId: 'string',
+    //     message: 'stringtrue',
+    //     senderId: 'trueg',
+    //     senderName: 'trueng',
+    //     senderProfile: 'trueing',
+    //     isMe: false,
+    //   },
+    // ])
   }, [])
 
   return (
@@ -136,4 +154,4 @@ function RoomDetailComp(): JSX.Element {
   )
 }
 
-export default RoomDetailComp
+export default RoomDetailPage

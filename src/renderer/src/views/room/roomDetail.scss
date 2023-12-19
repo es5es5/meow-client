@@ -9,17 +9,19 @@
 .messageWrap {
   position: relative;
   li {
-    position: absolute;
-    width: 100%;
+    width: auto;
     padding: 4px 8px;
 
     &.left {
-      left: 0;
+      text-align: left;
       background-color: #182533;
     }
     &.right {
-      right: 0;
+      text-align: right;
       background-color: #2b5278;
+    }
+
+    .message {
     }
   }
 }

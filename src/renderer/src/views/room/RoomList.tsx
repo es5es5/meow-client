@@ -68,6 +68,7 @@ function RoomList(): JSX.Element {
   }
 
   const sendJoinRoomMessage = (roomId: string): void => {
+    // navigate(`/room/${roomId}`)
     if (roomId === '') return
     ws.send(
       JSON.stringify({
