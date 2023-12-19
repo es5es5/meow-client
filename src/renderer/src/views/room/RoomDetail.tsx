@@ -1,21 +1,16 @@
 import PageHeader from '@renderer/components/PageHeader'
-import { RoomItem } from '@renderer/models/Room'
+import { MessageItem, RoomDetail } from '@renderer/models/Room'
 import { WSMessageData } from '@renderer/models/WS'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import './roomDetail.scss'
-import { User } from '@renderer/models/User'
+import MessageList from './components/MessageList'
 import SendChatMessage from './components/SendChatMessage'
+import './roomDetail.scss'
 
-interface RoomDetail {
-  room: RoomItem
-  players?: Array<User>
-}
-
-function RoomDetail(): JSX.Element {
+function RoomDetailComp(): JSX.Element {
   const [ws, setWs] = useState(new WebSocket(import.meta.env.RENDERER_VITE_SOCKET_URL))
   const [roomDetail, setRoomDetail] = useState({} as RoomDetail)
-  const [roomMessages, setRoomMessages] = useState({} as any)
+  const [roomMessages, setRoomMessages] = useState([] as Array<MessageItem>)
   const [inputText, setInputText] = useState('' as any)
   const navigate = useNavigate()
   const params = useParams()
@@ -50,14 +45,27 @@ function RoomDetail(): JSX.Element {
         switch (WSMessageData.data.action) {
           case 'list':
         }
-        switch (WSMessageData.data.action) {
-          case 'detail':
-            console.log('detail', WSMessageData.data.data)
-            setRoomDetail(WSMessageData.data.data)
-        }
+        // switch (WSMessageData.data.action) {
+        //   case 'detail':
+        //     console.log('detail', WSMessageData.data.data)
+        //     setRoomDetail(WSMessageData.data.data)
+        // }
         switch (WSMessageData.data.action) {
           case 'message':
-            console.log('message', WSMessageData.data.data)
+            setRoomMessages([
+              roomMessages.map((message: MessageItem) => {
+                return {
+                  ...message,
+                  isMe: message.senderId === import.meta.env.RENDERER_VITE_USER_ID,
+                }
+              }),
+              ...WSMessageData.data.data.map((message: MessageItem) => {
+                return {
+                  ...message,
+                  isMe: message.senderId === import.meta.env.RENDERER_VITE_USER_ID,
+                }
+              }),
+            ])
         }
         return
       }
@@ -117,9 +125,7 @@ function RoomDetail(): JSX.Element {
       />
       <hr />
       <div>
-        <ul>
-          <li>ㅁㄴㅇㄹ</li>
-        </ul>
+        <MessageList roomMessages={roomMessages} />
       </div>
       <SendChatMessage
         inputText={inputText}
@@ -130,4 +136,4 @@ function RoomDetail(): JSX.Element {
   )
 }
 
-export default RoomDetail
+export default RoomDetailComp
