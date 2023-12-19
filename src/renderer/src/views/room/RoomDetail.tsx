@@ -27,7 +27,7 @@ function RoomDetail(): JSX.Element {
           data: {
             id: import.meta.env.RENDERER_VITE_USER_ID,
             nickName: import.meta.env.RENDERER_VITE_USER_ID,
-            eventListener: ['room.detail', 'room.chat'],
+            eventListener: ['room.detail', 'room.message'],
           },
         }),
       )
