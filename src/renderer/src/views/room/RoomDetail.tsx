@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import './roomDetail.scss'
 import { User } from '@renderer/models/User'
+import SendChatMessage from './components/SendChatMessage'
 
 interface RoomDetail {
   room: RoomItem
@@ -14,6 +15,7 @@ interface RoomDetail {
 function RoomDetail(): JSX.Element {
   const [ws, setWs] = useState(new WebSocket(import.meta.env.RENDERER_VITE_SOCKET_URL))
   const [roomDetail, setRoomDetail] = useState({} as RoomDetail)
+  const [inputText, setInputText] = useState('' as any)
   const navigate = useNavigate()
   const params = useParams()
 
@@ -70,6 +72,20 @@ function RoomDetail(): JSX.Element {
     )
   }
 
+  const sendChatMessage = (): void => {
+    if (inputText.length < 1) return
+    ws.send(
+      JSON.stringify({
+        event: 'message',
+        data: {
+          roomId: roomDetail.room?.id,
+          message: inputText,
+        },
+      }),
+    )
+    setInputText('')
+  }
+
   const leaveRoom = (): void => {
     ws.send(
       JSON.stringify({
@@ -95,7 +111,16 @@ function RoomDetail(): JSX.Element {
         players={roomDetail.players}
       />
       <hr />
-      <div>Chat</div>
+      <div>
+        <ul>
+          <li>ㅁㄴㅇㄹ</li>
+        </ul>
+      </div>
+      <SendChatMessage
+        inputText={inputText}
+        setInputText={setInputText}
+        sendChatMessage={sendChatMessage}
+      />
     </div>
   )
 }

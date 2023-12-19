@@ -1,0 +1,22 @@
+#sendChatMessage {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  textarea {
+    width: 100%;
+    color: #ffffff;
+    background-color: #17212b;
+    border: 1px solid #17212b;
+    padding: 10px 40px 10px 12px;
+    height: 46px;
+    font-size: 14px;
+    line-height: 14px;
+  }
+
+  .sendMessageIconWrap {
+    position: absolute;
+    cursor: pointer;
+    top: 6px;
+    right: 10px;
+  }
+}
