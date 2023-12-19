@@ -1,7 +1,7 @@
 import { RoomItem } from '@renderer/models/Room'
 import '../room.scss'
 
-function RoomItem(room: RoomItem, joinRoom): JSX.Element {
+function RoomItemComp(room: RoomItem, joinRoom): JSX.Element {
   return (
     <li key={room.id}>
       <span className="roomInfo">{room.name}</span>
@@ -19,4 +19,4 @@ function RoomItem(room: RoomItem, joinRoom): JSX.Element {
   )
 }
 
-export default RoomItem
+export default RoomItemComp
