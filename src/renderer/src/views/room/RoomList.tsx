@@ -87,7 +87,7 @@ function RoomList(): JSX.Element {
           <div className="profileWrap">
             <img
               className="profileImage"
-              src="https://cdn-icons-png.flaticon.com/128/1581/1581279.png"
+              src={`data:image/png;${room.ownerProfile}`}
               alt="profile"
             />
           </div>
