@@ -43,6 +43,7 @@ function PageHeader(props: {
             fill={isUserIconMouseOver ? '#eee' : '#6C7883'}
           />
         </svg>
+        <span className="countCircle">{props.players?.length}</span>
       </div>
     )
   }
