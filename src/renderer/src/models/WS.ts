@@ -1,4 +1,4 @@
-export interface WSMessageData {
+export type WSMessageData = {
   event: string
   data: {
     action: string

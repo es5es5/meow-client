@@ -1,6 +1,6 @@
 import { User } from './User'
 
-export interface RoomItem {
+export type RoomItem = {
   createdAt: string
   id: string
   name: string
@@ -9,12 +9,12 @@ export interface RoomItem {
   ownerProfile: string
 }
 
-export interface RoomDetail {
+export type RoomDetail = {
   room: RoomItem
   players?: Array<User>
 }
 
-export interface MessageItem {
+export type MessageItem = {
   roomId: string
   message: string
   senderId: string
