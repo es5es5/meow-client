@@ -1,14 +1,14 @@
 import PageHeader from '@renderer/components/PageHeader'
 import { MessageItem, RoomDetail } from '@renderer/models/Room'
 import { WSMessageData } from '@renderer/models/WS'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import MessageList from './components/MessageList'
 import SendChatMessage from './components/SendChatMessage'
 import './roomDetail.scss'
 
 function RoomDetailPage(): JSX.Element {
-  const [ws, setWs] = useState(new WebSocket(import.meta.env.RENDERER_VITE_SOCKET_URL))
+  const ws = useRef(new WebSocket(import.meta.env.RENDERER_VITE_SOCKET_URL))
   const [roomDetail, setRoomDetail] = useState({} as RoomDetail)
   const [roomMessages, setRoomMessages] = useState([] as Array<MessageItem>)
   const [inputText, setInputText] = useState('' as any)
@@ -16,8 +16,8 @@ function RoomDetailPage(): JSX.Element {
   const params = useParams()
 
   const socketOnOpen = (): void => {
-    ws.onopen = (): void => {
-      ws.send(
+    ws.current.onopen = (): void => {
+      ws.current.send(
         JSON.stringify({
           event: 'connect',
           data: {
@@ -33,7 +33,7 @@ function RoomDetailPage(): JSX.Element {
   }
 
   const socketOnMessage = (): void => {
-    ws.onmessage = (message): void => {
+    ws.current.onmessage = (message): void => {
       const WSMessageData = JSON.parse(message.data) as WSMessageData
       console.log('event', WSMessageData.event)
       if (WSMessageData && WSMessageData.event === 'connection') {
@@ -74,7 +74,7 @@ function RoomDetailPage(): JSX.Element {
 
   const sendJoinRoomMessage = (roomId?: string): void => {
     if (!roomId || roomId === '') return
-    ws.send(
+    ws.current.send(
       JSON.stringify({
         event: 'room',
         data: {
@@ -87,7 +87,7 @@ function RoomDetailPage(): JSX.Element {
 
   const sendChatMessage = (): void => {
     if (inputText.length < 1) return
-    ws.send(
+    ws.current.send(
       JSON.stringify({
         event: 'message',
         data: {
@@ -100,7 +100,7 @@ function RoomDetailPage(): JSX.Element {
   }
 
   const leaveRoom = (): void => {
-    ws.send(
+    ws.current.send(
       JSON.stringify({
         event: 'room',
         data: {
