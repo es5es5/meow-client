@@ -11,13 +11,10 @@ function RoomList(): JSX.Element {
   const [roomName, setRoomName] = useState('' as string)
   const navigate = useNavigate()
 
-  const socketOnOpen = (): void => {}
-
-  const socketOnMessage = (): void => {}
-
   const createRoom = (): void => {
     if (roomName === '') return
-    ws.current!.send(
+    if (!ws.current?.readyState) return
+    ws.current.send(
       JSON.stringify({
         event: 'room',
         data: {
@@ -32,7 +29,8 @@ function RoomList(): JSX.Element {
   const sendJoinRoomMessage = (roomId: string): void => {
     // navigate(`/room/${roomId}`)
     if (roomId === '') return
-    ws.current!.send(
+    if (!ws.current?.readyState) return
+    ws.current.send(
       JSON.stringify({
         event: 'room',
         data: {
@@ -76,7 +74,7 @@ function RoomList(): JSX.Element {
           data: {
             id: import.meta.env.RENDERER_VITE_USER_ID,
             nickName: import.meta.env.RENDERER_VITE_USER_ID,
-            eventListener: ['room.list'],
+            eventListener: ['room.list', 'room.join'],
           },
         }),
       )
@@ -91,7 +89,8 @@ function RoomList(): JSX.Element {
           switch (WSMessageData.data.action) {
             case 'create':
               console.log('create', WSMessageData.data.data)
-              navigate(`/room/${WSMessageData.data?.data}`)
+              sendJoinRoomMessage(WSMessageData.data.data)
+            // navigate(`/room/${WSMessageData.data?.data}`)
           }
           switch (WSMessageData.data.action) {
             case 'join':
