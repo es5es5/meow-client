@@ -3,6 +3,7 @@ import { WSMessageData } from '@renderer/models/WS'
 import { ReactNode, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './roomList.scss'
+import { generateUUID } from '@renderer/ts/utils'
 
 function RoomList(): JSX.Element {
   const ws = useRef<WebSocket>()
@@ -18,6 +19,7 @@ function RoomList(): JSX.Element {
       JSON.stringify({
         event: 'room',
         data: {
+          id: generateUUID(),
           action: 'create',
           name: roomName,
         },
@@ -89,8 +91,7 @@ function RoomList(): JSX.Element {
           switch (WSMessageData.data.action) {
             case 'create':
               console.log('create', WSMessageData.data.data)
-              sendJoinRoomMessage(WSMessageData.data.data)
-            // navigate(`/room/${WSMessageData.data?.data}`)
+              navigate(`/room/${WSMessageData.data?.data}`)
           }
           switch (WSMessageData.data.action) {
             case 'join':
