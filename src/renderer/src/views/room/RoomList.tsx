@@ -1,61 +1,23 @@
 import { RoomItem } from '@renderer/models/Room'
 import { WSMessageData } from '@renderer/models/WS'
-import { ReactNode, useEffect, useState } from 'react'
+import { ReactNode, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './roomList.scss'
 
 function RoomList(): JSX.Element {
-  const [ws, setWs] = useState(new WebSocket(import.meta.env.RENDERER_VITE_SOCKET_URL))
+  const ws = useRef<WebSocket>()
+  // const [ws, setWs] = useState(new WebSocket(import.meta.env.RENDERER_VITE_SOCKET_URL))
   const [roomList, setRoomList] = useState([] as Array<RoomItem>)
   const [roomName, setRoomName] = useState('' as string)
   const navigate = useNavigate()
 
-  const socketOnOpen = (): void => {
-    ws.onopen = (): void => {
-      console.log('ononpen')
+  const socketOnOpen = (): void => {}
 
-      ws.send(
-        JSON.stringify({
-          event: 'connect',
-          data: {
-            id: import.meta.env.RENDERER_VITE_USER_ID,
-            nickName: import.meta.env.RENDERER_VITE_USER_ID,
-            eventListener: ['room.list'],
-          },
-        }),
-      )
-
-      socketOnMessage()
-    }
-  }
-
-  const socketOnMessage = (): void => {
-    ws.onmessage = (message): void => {
-      const WSMessageData = JSON.parse(message.data) as WSMessageData
-      if (WSMessageData && WSMessageData.event === 'room') {
-        switch (WSMessageData.data.action) {
-          case 'list':
-            console.log('list', WSMessageData.data.data)
-            setRoomList(WSMessageData.data.data)
-        }
-        switch (WSMessageData.data.action) {
-          case 'create':
-            console.log('create', WSMessageData.data.data)
-            navigate(`/room/${WSMessageData.data?.data?.room.id}`)
-        }
-        switch (WSMessageData.data.action) {
-          case 'join':
-            console.log('join', WSMessageData.data.data)
-            console.log('WSMessageData.data?.data?.room.id', WSMessageData.data?.data?.room.id)
-            navigate(`/room/${WSMessageData.data?.data?.room.id}`)
-        }
-      }
-    }
-  }
+  const socketOnMessage = (): void => {}
 
   const createRoom = (): void => {
     if (roomName === '') return
-    ws.send(
+    ws.current!.send(
       JSON.stringify({
         event: 'room',
         data: {
@@ -70,7 +32,7 @@ function RoomList(): JSX.Element {
   const sendJoinRoomMessage = (roomId: string): void => {
     // navigate(`/room/${roomId}`)
     if (roomId === '') return
-    ws.send(
+    ws.current!.send(
       JSON.stringify({
         event: 'room',
         data: {
@@ -104,7 +66,42 @@ function RoomList(): JSX.Element {
   }
 
   useEffect(() => {
-    socketOnOpen()
+    ws.current = new WebSocket(import.meta.env.RENDERER_VITE_SOCKET_URL)
+    ws.current.onopen = (): void => {
+      console.log('ononpen', ws.current?.readyState)
+      if (!ws.current?.readyState) return
+      ws.current.send(
+        JSON.stringify({
+          event: 'connect',
+          data: {
+            id: import.meta.env.RENDERER_VITE_USER_ID,
+            nickName: import.meta.env.RENDERER_VITE_USER_ID,
+            eventListener: ['room.list'],
+          },
+        }),
+      )
+      ws.current.onmessage = (message): void => {
+        const WSMessageData = JSON.parse(message.data) as WSMessageData
+        if (WSMessageData && WSMessageData.event === 'room') {
+          switch (WSMessageData.data.action) {
+            case 'list':
+              console.log('list', WSMessageData.data.data)
+              setRoomList(WSMessageData.data.data)
+          }
+          switch (WSMessageData.data.action) {
+            case 'create':
+              console.log('create', WSMessageData.data.data)
+              navigate(`/room/${WSMessageData.data?.data}`)
+          }
+          switch (WSMessageData.data.action) {
+            case 'join':
+              console.log('join', WSMessageData.data.data)
+              console.log('WSMessageData.data?.data?.room.id', WSMessageData.data?.data?.room.id)
+              navigate(`/room/${WSMessageData.data?.data?.room.id}`)
+          }
+        }
+      }
+    }
   }, [])
 
   return (
