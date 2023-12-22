@@ -76,7 +76,7 @@ function RoomList(): JSX.Element {
           data: {
             id: import.meta.env.RENDERER_VITE_USER_ID,
             nickName: import.meta.env.RENDERER_VITE_USER_ID,
-            eventListener: ['room.list', 'room.join'],
+            eventListener: ['room.list', 'room.join', 'room.create'],
           },
         }),
       )
