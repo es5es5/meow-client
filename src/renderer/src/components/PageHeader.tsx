@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import './header.scss'
-import { User } from '@renderer/models/User'
+import { Player } from '@renderer/models/User'
 
 function PageHeader(props: {
   title: string
   onBackClick: any
-  players?: Array<User>
+  players?: Array<Player>
 }): JSX.Element {
   const [isSettingsIconMouseOver, setisSettingsIconMouseOver] = useState(false)
   const [isBackIconMouseOver, setisBackIconMouseOver] = useState(false)

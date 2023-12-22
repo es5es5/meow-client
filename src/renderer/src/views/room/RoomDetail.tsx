@@ -92,6 +92,8 @@ function RoomDetailPage(): JSX.Element {
             console.log('before', roomMessages)
             newMessage = {
               ...WSMessageData.data.data,
+              // isMe: WSMessageData.data.data.senderId === import.meta.env.RENDERER_VITE_USER_ID,
+              isRoomOwner: WSMessageData.data.data.senderId === roomDetail.room.ownerId,
               isMe: WSMessageData.data.data.senderId === import.meta.env.RENDERER_VITE_USER_ID,
             }
             setRoomMessages([...roomMessages, newMessage])

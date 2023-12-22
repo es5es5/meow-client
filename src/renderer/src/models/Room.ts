@@ -1,4 +1,4 @@
-import { User } from './User'
+import { Player } from './User'
 
 export type RoomItem = {
   createdAt: string
@@ -11,7 +11,7 @@ export type RoomItem = {
 
 export type RoomDetail = {
   room: RoomItem
-  players?: Array<User>
+  players?: Array<Player>
 }
 
 export type MessageItem = {
@@ -20,5 +20,6 @@ export type MessageItem = {
   senderId: string
   senderName: string
   senderProfile: string
+  isRoomOwner?: boolean
   isMe?: boolean
 }
