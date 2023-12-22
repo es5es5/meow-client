@@ -80,7 +80,7 @@ function RoomDetailPage(): JSX.Element {
         sendJoinRoomMessage(params.roomId)
       }
       if (WSMessageData && WSMessageData.event === 'room') {
-        let tempMessages = [] as Array<MessageItem>
+        let newMessage = {} as MessageItem
         switch (WSMessageData.data.action) {
           case 'list':
             break
@@ -91,19 +91,16 @@ function RoomDetailPage(): JSX.Element {
             break
           case 'message':
             console.log('before', roomMessages)
-            tempMessages = [
-              {
-                ...WSMessageData.data.data,
-                isMe: WSMessageData.data.data.sendId === import.meta.env.RENDERER_VITE_USER_ID,
-              },
-            ]
-            setRoomMessages([...roomMessages, ...tempMessages])
-            console.log('roomMessages', roomMessages)
+            newMessage = {
+              ...WSMessageData.data.data,
+              isMe: WSMessageData.data.data.senderId === import.meta.env.RENDERER_VITE_USER_ID,
+            }
+            setRoomMessages([...roomMessages, newMessage])
             break
         }
       }
     }
-  }, [])
+  }, [roomMessages])
 
   return (
     <div id="roomDetail">
