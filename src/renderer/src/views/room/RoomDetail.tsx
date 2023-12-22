@@ -85,7 +85,6 @@ function RoomDetailPage(): JSX.Element {
           case 'list':
             break
           case 'join':
-            break
           case 'detail':
             setRoomDetail(WSMessageData.data.data)
             break
