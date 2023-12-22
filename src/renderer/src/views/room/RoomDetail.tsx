@@ -75,39 +75,32 @@ function RoomDetailPage(): JSX.Element {
     }
     ws.current.onmessage = (message): void => {
       const WSMessageData = JSON.parse(message.data) as WSMessageData
-      console.log('event', WSMessageData.event)
       if (WSMessageData && WSMessageData.event === 'connection') {
         console.log('sendJoin', params.roomId)
         sendJoinRoomMessage(params.roomId)
-        return
       }
       if (WSMessageData && WSMessageData.event === 'room') {
+        let tempMessages = [] as Array<MessageItem>
         switch (WSMessageData.data.action) {
           case 'list':
-        }
-        // switch (WSMessageData.data.action) {
-        //   case 'detail':
-        //     console.log('detail', WSMessageData.data.data)
-        //     setRoomDetail(WSMessageData.data.data)
-        // }
-        switch (WSMessageData.data.action) {
+            break
+          case 'join':
+            break
+          case 'detail':
+            setRoomDetail(WSMessageData.data.data)
+            break
           case 'message':
-            setRoomMessages([
-              roomMessages.map((message: MessageItem) => {
-                return {
-                  ...message,
-                  isMe: message.senderId === import.meta.env.RENDERER_VITE_USER_ID,
-                }
-              }),
-              ...WSMessageData.data.data.map((message: MessageItem) => {
-                return {
-                  ...message,
-                  isMe: message.senderId === import.meta.env.RENDERER_VITE_USER_ID,
-                }
-              }),
-            ])
+            console.log('before', roomMessages)
+            tempMessages = [
+              {
+                ...WSMessageData.data.data,
+                isMe: WSMessageData.data.data.sendId === import.meta.env.RENDERER_VITE_USER_ID,
+              },
+            ]
+            setRoomMessages([...roomMessages, ...tempMessages])
+            console.log('roomMessages', roomMessages)
+            break
         }
-        return
       }
     }
   }, [])

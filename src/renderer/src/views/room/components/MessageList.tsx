@@ -7,7 +7,13 @@ function MessageList(props: { roomMessages: Array<MessageItem> }): JSX.Element {
         {props.roomMessages.map((message: MessageItem, index) => {
           return (
             <li className={`${message.isMe ? 'right' : 'left'}`} key={`message_${index}`}>
-              <span className="message">{message.message}</span>
+              {message.isMe ? (
+                <span className="message">{message.message}</span>
+              ) : (
+                <span className="message">
+                  {message.senderName}: {message.message}
+                </span>
+              )}
             </li>
           )
         })}

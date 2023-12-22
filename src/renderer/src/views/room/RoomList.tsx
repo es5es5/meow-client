@@ -87,17 +87,16 @@ function RoomList(): JSX.Element {
             case 'list':
               console.log('list', WSMessageData.data.data)
               setRoomList(WSMessageData.data.data)
-          }
-          switch (WSMessageData.data.action) {
+              break
             case 'create':
               console.log('create', WSMessageData.data.data)
               navigate(`/room/${WSMessageData.data?.data}`)
-          }
-          switch (WSMessageData.data.action) {
+              break
             case 'join':
               console.log('join', WSMessageData.data.data)
               console.log('WSMessageData.data?.data?.room.id', WSMessageData.data?.data?.room.id)
               navigate(`/room/${WSMessageData.data?.data?.room.id}`)
+              break
           }
         }
       }

@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import './sendChatMessage.scss'
 
 function SendChatMessage(props: {
@@ -8,20 +9,29 @@ function SendChatMessage(props: {
   const handleEnter = (e: React.KeyboardEvent<HTMLTextAreaElement>): void => {
     if (e.key === 'Enter') {
       e.preventDefault()
-      props.sendChatMessage()
+      handleSendMessage()
     }
   }
+
+  const handleSendMessage = (): void => {
+    props.sendChatMessage()
+    document.getElementById('inputTextarea')?.focus()
+  }
+
+  useEffect(() => {
+    document.getElementById('inputTextarea')?.focus()
+  }, [])
 
   return (
     <div id="sendChatMessage">
       <textarea
         name=""
-        id=""
+        id="inputTextarea"
         value={props.inputText}
         onChange={(e) => props.setInputText(e.target.value)}
         onKeyDown={(e) => handleEnter(e)}
       ></textarea>
-      <div className="sendMessageIconWrap" onClick={() => props.sendChatMessage()}>
+      <div className="sendMessageIconWrap" onClick={() => handleSendMessage()}>
         <svg width="34" height="34" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g clipPath="url(#prefix__clip0_1569_3)">
             <path
