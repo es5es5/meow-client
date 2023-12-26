@@ -36,7 +36,7 @@ function createWindow(): void {
   }
 }
 
-const installExtensions = async () => {
+const installExtensions = async (): Promise<any> => {
   const installer = require('electron-devtools-installer')
   const forceDownload = true
   const extensions = ['REACT_DEVELOPER_TOOLS', 'REDUX_DEVTOOLS']
@@ -50,7 +50,10 @@ const installExtensions = async () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(async () => {
-  await installExtensions()
+  console.log('ENV: ', import.meta.env.MAIN_VITE_ENV_NAME)
+  if (import.meta.env.MAIN_VITE_ENV_NAME === 'local') {
+    await installExtensions()
+  }
   // Set app user model id for windows
   electronApp.setAppUserModelId('com.electron')
 

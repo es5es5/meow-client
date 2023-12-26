@@ -5,23 +5,3 @@
 
   color: #eee;
 }
-
-.messageWrap {
-  position: relative;
-  li {
-    width: auto;
-    padding: 4px 8px;
-
-    &.left {
-      text-align: left;
-      background-color: #182533;
-    }
-    &.right {
-      text-align: right;
-      background-color: #2b5278;
-    }
-
-    .message {
-    }
-  }
-}

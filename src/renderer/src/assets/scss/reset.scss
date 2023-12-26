@@ -20,6 +20,8 @@ body,
   -moz-user-select: none;
   -ms-use-select: none;
   user-select: none;
+  background-color: $backgroundBasic;
+  color: $whiteBasic;
 }
 html {
   font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;
