@@ -107,6 +107,9 @@ function RoomDetailPage(): JSX.Element {
         }
       }
     }
+    ws.current.onclose = (): void => {
+      navigate('/room')
+    }
   }, [roomMessages])
 
   return (

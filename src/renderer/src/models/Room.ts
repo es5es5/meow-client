@@ -13,6 +13,7 @@ export type RoomItem = {
   isSecret: boolean
   name: string
   ownerId: string
+  ownerProfile: string
 }
 
 export type MessageItem = {
