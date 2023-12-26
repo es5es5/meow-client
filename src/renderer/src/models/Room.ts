@@ -1,17 +1,18 @@
 import { Player } from './User'
 
-export type RoomItem = {
-  createdAt: string
-  id: string
-  name: string
-  ownerId: string
-  ownerName: string
-  ownerProfile: string
-}
-
 export type RoomDetail = {
   room: RoomItem
   players?: Array<Player>
+}
+
+export type RoomItem = {
+  attendeeTotal: number
+  canEnter: boolean
+  createdAt: string
+  id: string
+  isSecret: boolean
+  name: string
+  ownerId: string
 }
 
 export type MessageItem = {

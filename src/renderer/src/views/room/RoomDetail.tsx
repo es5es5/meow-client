@@ -85,15 +85,21 @@ function RoomDetailPage(): JSX.Element {
           case 'list':
             break
           case 'join':
+            setRoomDetail({
+              players: roomDetail.players,
+              room: WSMessageData.data.data.room,
+            })
+            break
           case 'detail':
             setRoomDetail(WSMessageData.data.data)
             break
           case 'message':
+            console.log('roomDetail.room', roomDetail)
             console.log('before', roomMessages)
             newMessage = {
               ...WSMessageData.data.data,
               // isMe: WSMessageData.data.data.senderId === import.meta.env.RENDERER_VITE_USER_ID,
-              isRoomOwner: WSMessageData.data.data.senderId === roomDetail.room.ownerId,
+              isRoomOwner: WSMessageData.data.data.senderId === roomDetail.room?.ownerId,
               isMe: WSMessageData.data.data.senderId === import.meta.env.RENDERER_VITE_USER_ID,
             }
             setRoomMessages([...roomMessages, newMessage])
