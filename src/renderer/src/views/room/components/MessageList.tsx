@@ -1,10 +1,13 @@
 import { MessageItem } from '@renderer/models/Room'
 import './message.scss'
+import dayjs from 'dayjs'
+import 'dayjs/locale/ko'
+dayjs.locale('ko')
 
 const renderMyChat = (message: MessageItem): JSX.Element => {
   return (
     <div className="messageWrap me">
-      <span className="createAt me">12:00</span>
+      <span className="sendDatetime me">{dayjs(message.sendDatetime).format('A hh:mm')}</span>
       <span className="messageText me">{message.message}</span>
     </div>
   )
@@ -18,7 +21,7 @@ const renderOtherChat = (message: MessageItem): JSX.Element => {
         <span className="senderName other">{message.senderName}: </span>
         {message.message}
       </span>
-      <span className="createAt other">12:00</span>
+      <span className="sendDatetime other">{dayjs(message.sendDatetime).format('A hh:mm')}</span>
     </div>
   )
 }

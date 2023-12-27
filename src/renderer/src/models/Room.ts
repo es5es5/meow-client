@@ -24,4 +24,5 @@ export type MessageItem = {
   senderProfile: string
   isRoomOwner?: boolean
   isMe?: boolean
+  sendDatetime?: string
 }
