@@ -34,13 +34,22 @@ h2 {
   background-color: #17212b;
 
   li {
+    position: relative;
     vertical-align: middle;
     cursor: pointer;
     padding: 4px 8px;
+
     &:hover {
       background-color: #232e3c;
     }
+
+    .badgeWrap {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+    }
     .userProfile {
+      background-color: transparent;
       width: 32px;
       height: 32px;
       margin-right: 4px;

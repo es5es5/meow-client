@@ -1,47 +1,63 @@
-<svg width="133" height="131" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <g filter="url(#prefix__filter0_d_1572_3)">
+<svg width="25" height="36" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g filter="url(#prefix__filter0_d_1574_3)">
     <path
-      d="M58.054 3.267a5.314 5.314 0 016.924 0l6.891 5.918a5.314 5.314 0 004.654 1.147l8.853-2.037a5.313 5.313 0 016.13 3.217l3.352 8.443a5.313 5.313 0 003.588 3.179l8.785 2.31a5.312 5.312 0 013.933 5.697l-.956 9.034a5.317 5.317 0 001.7 4.482l6.706 6.127a5.314 5.314 0 01.835 6.874l-5.045 7.554a5.314 5.314 0 00-.578 4.758l3.09 8.543a5.313 5.313 0 01-2.455 6.474l-7.977 4.344a5.313 5.313 0 00-2.723 3.945l-1.234 9a5.313 5.313 0 01-5.182 4.591l-9.083.14a5.313 5.313 0 00-4.245 2.228l-5.274 7.395a5.313 5.313 0 01-6.723 1.657l-8.107-4.097a5.31 5.31 0 00-4.793 0l-8.108 4.097a5.313 5.313 0 01-6.723-1.657l-5.274-7.395a5.313 5.313 0 00-4.245-2.228l-9.083-.14a5.313 5.313 0 01-5.182-4.591l-1.234-9a5.314 5.314 0 00-2.722-3.945L8.57 84.987a5.313 5.313 0 01-2.455-6.474l3.09-8.543a5.313 5.313 0 00-.578-4.758l-5.045-7.554a5.313 5.313 0 01.835-6.874l6.706-6.127a5.314 5.314 0 001.7-4.482l-.956-9.034a5.314 5.314 0 013.933-5.698l8.785-2.31a5.313 5.313 0 003.588-3.178l3.352-8.443a5.313 5.313 0 016.13-3.217l8.853 2.037a5.314 5.314 0 004.654-1.147l6.891-5.918z"
-      fill="url(#prefix__paint0_linear_1572_3)" />
-    <circle cx="61.469" cy="60.901" r="42.881" fill="#705100" />
-    <mask id="prefix__a" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="20" y="22" width="87" height="87">
-      <circle cx="63.758" cy="65.479" r="42.981" fill="#C28B37" />
+      d="M1.405 2.494C1.405 1.669 2.074 1 2.899 1h8.253c.825 0 1.494.669 1.494 1.494v.127c0 .755-.612 1.366-1.367 1.366v-1.57H2.771v1.57a1.366 1.366 0 01-1.366-1.366v-.127z"
+      fill="#FFEEB0" />
+    <path
+      d="M1.405 2.682c0-.825.669-1.494 1.494-1.494h8.253c.825 0 1.494.669 1.494 1.494v.127c0 .755-.612 1.366-1.367 1.366v-1.57H2.771v1.57A1.366 1.366 0 011.405 2.81v-.127z"
+      fill="#F4CC3F" />
+    <path d="M2.772 2.588h8.507v6.024l-4.254 2.985-4.253-2.985V2.588z" fill="#CE4444" />
+    <mask id="prefix__a" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="2" y="2" width="10" height="10">
+      <path d="M2.774 2.588h8.503v6.025l-4.252 2.984-4.25-2.984V2.588z" fill="#AF3B3B" />
     </mask>
     <g mask="url(#prefix__a)">
-      <circle cx="61.469" cy="60.902" r="42.981" fill="#E3A504" />
+      <path fill="#983535" d="M5.397-.987h3.256v12.584H5.397z" />
     </g>
-    <ellipse cx="62.683" cy="63.047" rx="33.761" ry="34.306" fill="#A36D1D" />
-    <circle opacity=".8" cx="62.683" cy="62.503" r="31.583" fill="url(#prefix__paint1_linear_1572_3)" />
-    <ellipse cx="63.227" cy="62.503" rx="17.97" ry="18.514" fill="#B5760C" />
-    <circle opacity=".8" cx="63.227" cy="61.958" r="16.881" fill="url(#prefix__paint2_linear_1572_3)" />
+    <rect x="6.316" y="10.017" width="1.367" height="2.329" rx=".684" fill="#C09525" />
+    <circle cx="7" cy="17.804" r="6" fill="url(#prefix__paint0_linear_1574_3)" />
+    <circle cx="7" cy="17.803" fill="#705100" r="4.684" />
+    <mask id="prefix__b" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="2" y="13" width="10" height="11">
+      <circle cx="7.284" cy="18.338" r="4.694" fill="#C28B37" />
+    </mask>
+    <g mask="url(#prefix__b)">
+      <circle cx="7" cy="17.804" r="4.694" fill="#F5B307" />
+    </g>
+    <circle cx="7.063" cy="17.837" r="3.857" fill="#C18222" />
+    <path
+      d="M7.063 14.733l.91 1.85 1.818.231-1.249 1.425.34 2.044-1.819-.925-1.818.925.342-2.044-1.251-1.425 1.818-.23.91-1.85z"
+      fill="url(#prefix__paint1_linear_1574_3)" />
+    <path
+      d="M7.512 14.513l-.449-.913-.448.913-.79 1.608-1.553.197-.934.12.622.706 1.095 1.246-.303 1.81-.164.978.884-.45 1.591-.81 1.592.81.882.45-.162-.977-.3-1.81 1.092-1.247.62-.707-.933-.119-1.551-.197-.79-1.608z"
+      stroke="#A36D1D" stroke-opacity=".2" />
+    <path opacity=".5" d="M11.296 6.362h-8.56V2.599h8.56v3.763z" fill="url(#prefix__paint2_linear_1574_3)" />
   </g>
   <defs>
-    <linearGradient id="prefix__paint0_linear_1572_3" x1="61.516" y1=".294" x2="61.516" y2="122.115"
+    <linearGradient id="prefix__paint0_linear_1574_3" x1="7" y1="11.804" x2="7" y2="23.804"
       gradientUnits="userSpaceOnUse">
-      <stop stop-color="#FFD951" />
-      <stop offset="1" stop-color="#A96500" />
+      <stop stop-color="#E7CD73" />
+      <stop offset="1" stop-color="#EA8C00" />
     </linearGradient>
-    <linearGradient id="prefix__paint1_linear_1572_3" x1="62.683" y1="30.919" x2="62.683" y2="94.086"
+    <linearGradient id="prefix__paint1_linear_1574_3" x1="7.063" y1="14.733" x2="7.063" y2="20.283"
       gradientUnits="userSpaceOnUse">
-      <stop stop-color="#D79B00" />
-      <stop offset="1" stop-color="#FFDD64" />
+      <stop stop-color="#fff" />
+      <stop offset="0" stop-color="#FFFFFD" />
+      <stop offset="1" stop-color="#FFE86D" />
     </linearGradient>
-    <linearGradient id="prefix__paint2_linear_1572_3" x1="63.227" y1="45.078" x2="63.227" y2="78.839"
+    <linearGradient id="prefix__paint2_linear_1574_3" x1="7.016" y1="6.362" x2="7.016" y2="2.599"
       gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#FFDA95" />
-      <stop offset="0" stop-color="#FFE2A9" />
-      <stop offset="1" stop-color="#E6D224" />
+      <stop stop-color="#A21D1D" stop-opacity="0" />
+      <stop offset="1" stop-color="#5A1414" />
     </linearGradient>
-    <filter id="prefix__filter0_d_1572_3" x="1.905" y="1.201" width="130.191" height="129.41"
-      filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+    <filter id="prefix__filter0_d_1574_3" x=".217" y=".217" width="24.536" height="35.34" filterUnits="userSpaceOnUse"
+      color-interpolation-filters="sRGB">
       <feFlood flood-opacity="0" result="BackgroundImageFix" />
       <feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
       <feOffset dx="5.484" dy="5.484" />
       <feGaussianBlur stdDeviation="3.134" />
       <feComposite in2="hardAlpha" operator="out" />
       <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.3 0" />
-      <feBlend in2="BackgroundImageFix" result="effect1_dropShadow_1572_3" />
-      <feBlend in="SourceGraphic" in2="effect1_dropShadow_1572_3" result="shape" />
+      <feBlend in2="BackgroundImageFix" result="effect1_dropShadow_1574_3" />
+      <feBlend in="SourceGraphic" in2="effect1_dropShadow_1574_3" result="shape" />
     </filter>
   </defs>
 </svg>
